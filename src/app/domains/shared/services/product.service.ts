@@ -1,24 +1,33 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from '../models/product.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
   private http = inject(HttpClient);
+  apiUrl = `${environment.apiUrl}/api/v1`;
 
-  getProducts(category_id?: string) {
-    const url = new URL(`https://api.escuelajs.co/api/v1/products`);
-    if (category_id) {
-      url.searchParams.set('categoryId', category_id);
-    }
-    return this.http.get<Product[]>(url.toString());
+getProducts(categoryId?: string, categorySlug?: string) {
+  let params = new HttpParams();
+
+  if (categoryId) {
+    params = params.set('category_id', categoryId);
   }
 
-  getOne(id: string) {
+  if (categorySlug) {
+    params = params.set('category_slug', categorySlug);
+  }
+
+  return this.http.get<Product[]>(`${this.apiUrl}/products`, { params });
+}
+
+  getOne(params: { id?: string, slug?: string }) {
+    const route = params.id ?? `slug/${params.slug}`;
     return this.http.get<Product>(
-      `https://api.escuelajs.co/api/v1/products/${id}`,
+      `${environment.apiUrl}/api/v1/products/${route}`,
     );
   }
 }
