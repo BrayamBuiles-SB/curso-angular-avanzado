@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Category } from '@shared/models/category.model';
 import { environment } from '@env/environment';
-import { filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +10,6 @@ export class CategoryService {
   private http = inject(HttpClient);
 
   getAll() {
-    return this.http.get<Category[]>(
-      `${environment.apiUrl}/api/v1/categories`,
-    ).pipe(map(data => data.filter(data => data.id <= 9)));
+    return this.http.get<Category[]>(`${environment.apiUrl}/api/v1/categories`);
   }
 }

@@ -4,17 +4,23 @@
       <li>
         <a routerLink="/">All</a>
       </li>
-      @for (category of categories(); track category) {
-        <li>
-          <a routerLink="/category/{{ category.slug }}">{{
-            category.name
-          }}</a>
-        </li>
+      <button (click)="resetCategories()">Resetear Categoria</button>
+      <button (click)="reloadCategories()">Recargar Categoria</button>
+      @if (this.categoriesResource.isLoading()) {
+        <p>Esta cargado</p>
+      } @else {
+        @for (category of categoriesResource.value(); track category.id) {
+          <li>
+            <a routerLink="/category/{{ category.slug }}">{{
+              category.name
+            }}</a>
+          </li>
+        }
       }
     </ul>
   </div>
   <div class="grid grid-cols-2 gap-8 w-full md:grid-cols-4">
-    @for (product of products(); track product) {
+    @for (product of productsResourse.value(); track product.id) {
       <app-product [product]="product" (addToCart)="addToCart($event)" />
     }
   </div>

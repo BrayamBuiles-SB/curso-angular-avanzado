@@ -10,24 +10,24 @@ export class ProductService {
   private http = inject(HttpClient);
   apiUrl = `${environment.apiUrl}/api/v1`;
 
-getProducts(categoryId?: string, categorySlug?: string) {
-  let params = new HttpParams();
+  getProducts(categoryId?: string, categorySlug?: string) {
+    let params = new HttpParams();
 
-  if (categoryId) {
-    params = params.set('category_id', categoryId);
+    if (categoryId) {
+      params = params.set('categoryId', categoryId);
+    }
+
+    if (categorySlug) {
+      params = params.set('categorySlug', categorySlug);
+    }
+
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params });
   }
 
-  if (categorySlug) {
-    params = params.set('category_slug', categorySlug);
-  }
-
-  return this.http.get<Product[]>(`${this.apiUrl}/products`, { params });
-}
-
-  getOne(params: { id?: string, slug?: string }) {
+  getOne(params: { id?: string; slug?: string }) {
     const route = params.id ?? `slug/${params.slug}`;
     return this.http.get<Product>(
-      `${environment.apiUrl}/api/v1/products/${route}`,
+      `${environment.apiUrl}/api/v1/products/${route}`
     );
   }
 }

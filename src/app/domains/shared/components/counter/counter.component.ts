@@ -5,7 +5,7 @@ import {
   AfterViewInit,
   OnDestroy,
   input,
-  effect
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,10 +14,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './counter.component.html',
 })
-export class CounterComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
-
+export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
   duration = input.required<number>();
   message = input.required<string>();
 
@@ -33,7 +30,7 @@ export class CounterComponent
     effect(() => {
       this.duration();
       this.doSomething();
-    })
+    });
   }
 
   ngOnInit() {
@@ -46,7 +43,7 @@ export class CounterComponent
     console.log('message =>', this.message);
     this.counterRef = window.setInterval(() => {
       console.log('run interval');
-      this.counter.update((statePrev) => statePrev + 1);
+      this.counter.update(statePrev => statePrev + 1);
     }, 1000);
   }
 
