@@ -8,7 +8,6 @@ import { Location } from '@shared/models/location.model';
 export class LocationServiceService {
   private url = new URL(`${environment.apiUrl}/api/v1/locations`);
 
-
   async getAllLocations(origin: string): Promise<Location[]> {
     if (!origin) return new Promise(resolve => resolve([]));
     this.url.searchParams.set('origin', origin);

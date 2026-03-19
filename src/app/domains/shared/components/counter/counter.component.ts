@@ -7,8 +7,10 @@ import {
   input,
   effect,
   afterNextRender,
+  PLATFORM_ID,
+  inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-counter',
@@ -18,6 +20,9 @@ import { CommonModule } from '@angular/common';
 export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
   duration = input.required<number>();
   message = input.required<string>();
+
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
 
   counter = signal(0);
   counterRef: number | null = null;
@@ -61,6 +66,9 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     console.log('ngOnDestroy');
     console.log('-'.repeat(10));
+    if (this.isBrowser && this.counterRef) {
+      window.clearInterval(this.counterRef);
+    }
     if (this.counterRef) window.clearInterval(this.counterRef);
   }
 
