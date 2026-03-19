@@ -1,5 +1,5 @@
 // app.routes.server.ts
-import {RenderMode, ServerRoute} from '@angular/ssr';
+import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   {
     path: '', // This renders the "/" route on the client (CSR)
@@ -7,7 +7,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'about', // This page is static, so we prerender it (SSG)
-    renderMode: RenderMode.Prerender,
+    renderMode: RenderMode.Client,
   },
   {
     path: 'locations', // This page requires user-specific data, so we use SSR

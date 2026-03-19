@@ -7,12 +7,7 @@ import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-product',
-  imports: [
-    CommonModule,
-    TimeAgoPipe,
-    RouterLinkWithHref,
-    NgOptimizedImage
-  ],
+  imports: [CommonModule, TimeAgoPipe, RouterLinkWithHref, NgOptimizedImage],
   templateUrl: './product.component.html',
 })
 export class ProductComponent {
