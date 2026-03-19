@@ -30,4 +30,10 @@ export class ProductService {
       `${environment.apiUrl}/api/v1/products/${route}`
     );
   }
+
+  getRelatedProduct(slug: string) {
+    return this.http.get<Product[]>(
+      `${environment.apiUrl}/api/v1/products/slug/${slug}/related`
+    );
+  }
 }

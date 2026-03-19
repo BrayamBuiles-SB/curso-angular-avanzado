@@ -52,4 +52,9 @@
       </button>
     </div>
   </div>
+  @defer (on viewport) {
+    <app-related [slug]="data.slug"></app-related>
+  } @placeholder {
+    <p>Cargando</p>
+  }
 }
